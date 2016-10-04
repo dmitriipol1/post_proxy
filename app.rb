@@ -13,3 +13,10 @@ post '/zapros' do
 
 	erb :show
 end
+
+get '/zapros' do
+    @data = params
+
+	erb :show
+end
+
