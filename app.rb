@@ -41,17 +41,19 @@ post '/good' do
 	messageFile.write "___________________________________________"
 	messageFile.close
 
+	return "WMI_RESULT=OK"
 	erb :good
 end
 
 post '/error' do
-	messageFile = File.open("./public/bad.txt", "a") 
+	messageFile = File.open("./public/bad.txt", "a")
 	params.each do |key,value|
 		messageFile.write "Key:#{key}, value:#{value}\n"
 	end
 	messageFile.write "___________________________________________"
 	messageFile.close
 
+	return "WMI_RESULT=RETRY&WMI_DESCRIPTION=Сервер временно недоступен"
 	erb :error
 end
 
