@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require 'net/http'
 require 'uri'
 
@@ -28,7 +28,7 @@ post '/zapros' do
 	response = Net::HTTP.post_form(uri, {
 		"WMI_MERCHANT_ID" => "191554294939",
 		"WMI_PAYMENT_AMOUNT" => "#{params[:deliveryOrderCost]}.00",
-		"WMI_CURRENCY_ID" => "634",
+		"WMI_CURRENCY_ID" => "643",
 		"WMI_PAYMENT_NO" => "#{params[:orderId]}", 
 		"WMI_DESCRIPTION" => "оплата заказа №#{params[:orderId]}",
 		"WMI_SUCCESS_URL" => "http://31.31.203.234/good",
@@ -66,7 +66,7 @@ post '/send' do
 	response = Net::HTTP.post_form(uri, {
 		"WMI_MERCHANT_ID" => "191554294939",
 		"WMI_PAYMENT_AMOUNT" => "#{params[:deliveryOrderCost]}.00",
-		"WMI_CURRENCY_ID" => "634",
+		"WMI_CURRENCY_ID" => "643",
 		"WMI_PAYMENT_NO" => "#{params[:orderId]}", 
 		"WMI_DESCRIPTION" => "оплата заказа №#{params[:orderId]}",
 		"WMI_SUCCESS_URL" => "http://31.31.203.234/good",
