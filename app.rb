@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require 'net/http'
 require 'uri'
 
@@ -26,11 +26,10 @@ post '/zapros' do
 		"WMI_CUSTOMER_PHONE" => "#{params[:clientPhone]}",
 		"WMI_CUSTOMER_FIRSTNAME" => "#{params[:clientFIO]}",
 		"WMI_CUSTOMER_EMAIL" => "#{params[:clientEmail]}",
-		"WMI_AUTO_LOCATION" => "1"
+		"WMI_AUTO_LOCATION" =>"1"
 		})
 
 	redirect "https://wl.walletone.com" + response['location'], 302
-
 end
 
 post '/good' do
