@@ -34,7 +34,7 @@ post '/zapros' do
 end
 
 post '/good' do
-	messageFile = File.open("./public/good.txt", "a") 
+	messageFile = File.open("./logs/good.txt", "a") 
 	params.each do |key,value|
 		messageFile.write "Key:#{key}, value:#{value}\n"
 	end
@@ -46,7 +46,7 @@ post '/good' do
 end
 
 post '/error' do
-	messageFile = File.open("./public/bad.txt", "a")
+	messageFile = File.open("./logs/bad.txt", "a")
 	params.each do |key,value|
 		messageFile.write "Key:#{key}, value:#{value}\n"
 	end
