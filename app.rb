@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-# require 'sinatra/reloader'
 require 'net/http'
 require 'uri'
 
@@ -19,10 +18,12 @@ post '/zapros' do
 	uri = URI.parse("https://wl.walletone.com/checkout/checkout/Index")
 	response = Net::HTTP.post_form(uri, {
 		"WMI_MERCHANT_ID" => "191554294939",
-		"WMI_PAYMENT_AMOUNT" => "333.00",
+		"WMI_PAYMENT_AMOUNT" => "#{params[:deliveryOrderCost]}.00",
 		"WMI_CURRENCY_ID" => "643",
+		"WMI_PAYMENT_NO" => "#{params[:orderId]}",
+		"WMI_DESCRIPTION" => "Оплата заказа №#{params[:orderId]}",
 		"WMI_SUCCESS_URL" => "http://31.31.203.234/good",
-		"WMI_FAIL_URL" => "http://31.31.203.234/bad",
+		"WMI_FAIL_URL" => "http://31.31.203.234/error",
 		"WMI_CUSTOMER_PHONE" => "#{params[:clientPhone]}",
 		"WMI_CUSTOMER_FIRSTNAME" => "#{params[:clientFIO]}",
 		"WMI_CUSTOMER_EMAIL" => "#{params[:clientEmail]}",
@@ -39,14 +40,18 @@ post '/good' do
 	end
 	messageFile.write "___________________________________________"
 	messageFile.close
+
+	erb :good
 end
 
-post '/bad' do
+post '/error' do
 	messageFile = File.open("./public/bad.txt", "a") 
 	params.each do |key,value|
 		messageFile.write "Key:#{key}, value:#{value}\n"
 	end
 	messageFile.write "___________________________________________"
 	messageFile.close
+
+	erb :error
 end
 
