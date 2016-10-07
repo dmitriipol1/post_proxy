@@ -8,17 +8,17 @@ get '/' do
 end
 
 post '/zapros' do
-	messageFile = File.open("./public/log.txt", "a") 
-	params.each do |key,value|
-		messageFile.write "Key:#{key}, value:#{value}\n"
-	end
-	messageFile.write "___________________________________________\n"
-	messageFile.close
+	# messageFile = File.open("./public/log.txt", "a") 
+	# params.each do |key,value|
+	# 	messageFile.write "Key:#{key}, value:#{value}\n"
+	# end
+	# messageFile.write "___________________________________________\n"
+	# messageFile.close
 
 	uri = URI.parse("https://wl.walletone.com/checkout/checkout/Index")
 	response = Net::HTTP.post_form(uri, {
 		"WMI_MERCHANT_ID" => "191554294939",
-		"WMI_PAYMENT_AMOUNT" => "#{params[:deliveryOrderCost]}.00",
+		"WMI_PAYMENT_AMOUNT" => "#{params[:deliveryOrderCost]}",
 		"WMI_CURRENCY_ID" => "643",
 		"WMI_PAYMENT_NO" => "#{params[:orderId]}",
 		"WMI_DESCRIPTION" => "Оплата заказа №#{params[:orderId]}",
@@ -34,26 +34,25 @@ post '/zapros' do
 end
 
 post '/good' do
-	messageFile = File.open("./logs/good.txt", "a") 
-	params.each do |key,value|
-		messageFile.write "Key:#{key}, value:#{value}\n"
-	end
-	messageFile.write "___________________________________________"
-	messageFile.close
+	# messageFile = File.open("./public/good.txt", "a") 
+	# params.each do |key,value|
+	# 	messageFile.write "Key:#{key}, value:#{value}\n"
+	# end
+	# messageFile.write "___________________________________________\n"
+	# messageFile.close
 
-	return "WMI_RESULT=OK"
-	erb :good
+	erb "WMI_RESULT=OK"
+	redirect "http://thanks.nanotekh.ru/" 
 end
 
 post '/error' do
-	messageFile = File.open("./logs/bad.txt", "a")
-	params.each do |key,value|
-		messageFile.write "Key:#{key}, value:#{value}\n"
-	end
-	messageFile.write "___________________________________________"
-	messageFile.close
+	# messageFile = File.open("./public/bad.txt", "a")
+	# params.each do |key,value|
+	# 	messageFile.write "Key:#{key}, value:#{value}\n"
+	# end
+	# messageFile.write "___________________________________________\n"
+	# messageFile.close
 
-	return "WMI_RESULT=RETRY&WMI_DESCRIPTION=Сервер временно недоступен"
-	erb :error
+	erb "WMI_RESULT=RETRY&WMI_DESCRIPTION=Сервер временно недоступен"
+	redirect "http://thanks.nanotekh.ru/" 
 end
-
